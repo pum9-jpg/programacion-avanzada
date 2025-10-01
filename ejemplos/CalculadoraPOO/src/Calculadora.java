@@ -20,4 +20,16 @@ public class Calculadora {
         return this.operando1 - this.operando2;
     }
 
+    public double multiplicacion() {
+        return this.operando1 * this.operando2;
+    }
+
+    public double dividir() {
+        if (operando2 == 0){
+            throw new ArithmeticException("division cero no permitida");
+        }
+        return operando1 / operando2;
+        
+        }
+
 }

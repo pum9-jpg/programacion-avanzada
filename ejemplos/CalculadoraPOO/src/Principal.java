@@ -7,5 +7,8 @@ public class Principal {
 
         System.out.println("Suma: " + miCalculadora.suma());
         System.out.println("Resta: " + miCalculadora.resta());
-    }
+        System.out.println("Multiplicacion: " + miCalculadora.multiplicacion());
+        System.out.println("Division: " + miCalculadora.dividir());
+        }
 }
+
