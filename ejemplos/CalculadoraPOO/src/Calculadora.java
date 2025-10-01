@@ -16,4 +16,8 @@ public class Calculadora {
         return this.operando1 + this.operando2;
     }
 
+    public double resta() {
+        return this.operando1 - this.operando2;
+    }
+  
 }

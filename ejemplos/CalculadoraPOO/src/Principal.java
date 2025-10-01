@@ -6,5 +6,6 @@ public class Principal {
         miCalculadora.colocarOperandos(4, 8);
 
         System.out.println("Suma: " + miCalculadora.suma());
+        System.out.println("Resta: " + miCalculadora.resta());
     }
 }
