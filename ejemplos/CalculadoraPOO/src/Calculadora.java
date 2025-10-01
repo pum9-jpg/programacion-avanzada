@@ -7,8 +7,7 @@ public class Calculadora {
 
     }
 
-    public void colocarOperandos(double a, double b) {
-        this.operando1 = a;
+    public void colocarOperandos(double a, double b) {this.operando1 = a;
         this.operando2 = b;
     }
 
@@ -25,7 +24,7 @@ public class Calculadora {
     }
 
     public double division() {
-        if (operando2 ==0){
+        if (operando2 == 0) {
             System.out.println("Division por cero no permitida ");
         }
         return this.operando1 / this.operando2;
