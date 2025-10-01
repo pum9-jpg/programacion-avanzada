@@ -2,10 +2,7 @@ public class Calculadora {
     private double operando1;
     private double operando2;
 
-    //Costructor
-    public Calculadora() {
-
-    }
+    public Calculadora() {}
 
     public void colocarOperandos(double a, double b) {
         this.operando1 = a;
@@ -16,4 +13,20 @@ public class Calculadora {
         return this.operando1 + this.operando2;
     }
 
+    public double resta() {
+        return this.operando1 - this.operando2;
+    }
+
+    public double multiplicacion() {
+        return this.operando1 * this.operando2;
+    }
+
+    public double division() {
+        if (this.operando2 != 0) {
+            return this.operando1 / this.operando2;
+        } else {
+            System.out.println("⚠ Error: No se puede dividir entre 0");
+            return 0;
+        }
+    }
 }
