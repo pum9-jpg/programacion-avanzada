@@ -1,34 +1,22 @@
 public class Calculadora {
-    private double operando1;
-    private double operando2;
 
-    //Costructor
-    public Calculadora() {
-
+    public double sumar(double a, double b) {
+        return a + b;
     }
 
-    public void colocarOperandos(double a, double b) {this.operando1 = a;
-        this.operando2 = b;
+    public double restar(double a, double b) {
+        return a - b;
     }
 
-    public double suma() {
-        return this.operando1 + this.operando2;
+    public double multiplicar(double a, double b) {
+        return a * b;
     }
 
-    public double resta() {
-        return this.operando1 - this.operando2;
-    }
-
-    public double multiplicacion() {
-        return this.operando1 * this.operando2;
-    }
-
-    public double division() {
-        if (operando2 == 0) {
-            System.out.println("Division por cero no permitida ");
+    public double dividir(double a, double b) {
+        if (b == 0) {
+            System.out.println("Error: No se puede dividir entre cero.");
+            return 0;
         }
-        return this.operando1 / this.operando2;
-
+        return a / b;
     }
-
 }
