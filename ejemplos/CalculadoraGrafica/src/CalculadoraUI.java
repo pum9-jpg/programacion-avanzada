@@ -3,7 +3,11 @@ import java.awt.*;
 
 public class CalculadoraUI extends JFrame {
 
-    private final JTextField display;
+    private final JTextField displayTextField;
+    private String currentText = "0"; // estado de pantalla
+    private double operand1 = 0;
+    private String operator = null;
+    private boolean resetOnNextDigit = false;
     
     public CalculadoraUI() {
         super("Calculadora");
@@ -20,13 +24,13 @@ public class CalculadoraUI extends JFrame {
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // Display (pantalla) - no editable por teclado, alineado a la derecha
-        display = new JTextField("0");
-        display.setEditable(true);
-        display.setHorizontalAlignment(SwingConstants.RIGHT);
-        display.setFont(displayFont);
-        display.setPreferredSize(new Dimension(260, 60));
+        displayTextField = new JTextField("0");
+        displayTextField.setEditable(true);
+        displayTextField.setHorizontalAlignment(SwingConstants.RIGHT);
+        displayTextField.setFont(displayFont);
+        displayTextField.setPreferredSize(new Dimension(260, 60));
 
-        mainPanel.add(display, BorderLayout.NORTH);
+        mainPanel.add(displayTextField, BorderLayout.NORTH);
 
         // Panel de botones con GridBag para permitir que el botón 0 ocupe más espacio
         JPanel buttons = new JPanel(new GridBagLayout());
@@ -89,10 +93,91 @@ public class CalculadoraUI extends JFrame {
         b.setFont(font);
         b.setFocusable(false);
         // Aquí se deja el ActionListener vacío como marcador. Ejemplo:
-        // b.addActionListener(e -> {
-        // // TODO: manejar eventos del botón
-        // });
+        b.addActionListener(e -> handleButtonClick(text));
+
         return b;
+    }
+
+    private void handleButtonClick(String text) {
+        switch (text) {
+            case "C":
+                currentText = "0";
+                operator = null;
+                operand1 = 0;
+                break;
+            case "±":
+                if (!currentText.equals("0")) {
+                    if (currentText.startsWith("-")) {
+                        currentText = currentText.substring(1);
+                    } else {
+                        currentText = "-" + currentText;
+                    }
+                }
+                break;
+            case ".":
+                if (resetOnNextDigit) {
+                    currentText = "0";
+                    resetOnNextDigit = false;
+                }
+                if (!currentText.contains(".")) {
+                    currentText += ".";
+                }
+                break;
+            case "=":
+                 if (operator != null) {
+                    double operand2 = Double.parseDouble(currentText);
+                    double result = calculate(operand1, operand2, operator);
+                    currentText = formatResult(result);
+                    operator = null;
+                }
+                
+                break;
+            case "+": case "-": case "*": case "/": case "%":
+                operand1 = Double.parseDouble(currentText);
+                operator = text;
+                resetOnNextDigit = true; // la próxima cifra reinicia
+                break;
+            default: // números
+                if (resetOnNextDigit) {
+                    currentText = text;
+                    resetOnNextDigit = false;
+                } else if (currentText.equals("0")) {
+                    currentText = text;
+                } else {
+                    currentText += text;
+                }
+                break;
+        }
+        displayTextField.setText(currentText);
+    }
+
+     private double calculate(double a, double b, String op) {
+        switch (op) {
+            case "+": return a + b;
+            case "-": return a - b;
+            case "*": return a * b;
+            case "/": return b != 0 ? a / b : Double.NaN;
+            case "%": return a % b;
+            default: return b;
+        }
+    }
+
+    private String formatResult(double value) {
+        // Elimina .0 si es entero
+        if (value == (long) value) {
+            return String.valueOf((long) value);
+        } else {
+            return String.valueOf(value);
+        }
+    }
+
+    // Método de utilidad para actualizar la pantalla desde la lógica (cuando se implemente)
+    public void setDisplayText(String text) {
+        displayTextField.setText(text);
+    }
+
+    public String getDisplayText() {
+        return displayTextField.getText();
     }
 
 }
