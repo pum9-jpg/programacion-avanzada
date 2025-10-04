@@ -16,4 +16,20 @@ public class Calculadora {
         return this.operando1 + this.operando2;
     }
 
+    public double resta() {
+        return this.operando1 - this.operando2;
+    }
+
+    public double multiplicacion() {
+        return this.operando1 * this.operando2;
+    }
+
+    public double division() {
+        if (operando2 ==0){
+            System.out.println("Division por cero no permitida ");
+        }
+        return this.operando1 / this.operando2;
+
+    }
+
 }
