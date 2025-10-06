@@ -8,9 +8,11 @@ public class CalculadoraUI extends JFrame {
     private double operand1 = 0;
     private String operator = null;
     private boolean resetOnNextDigit = false;
+    private Calculadora calculator;
     
     public CalculadoraUI() {
         super("Calculadora");
+        calculator = new Calculadora();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setSize(800, 800);
@@ -66,14 +68,12 @@ public class CalculadoraUI extends JFrame {
         JButton zero = makeButton("0", buttonFont);
         buttons.add(zero, gbc);
 
-
         // Botón '.'
         gbc.gridx = 2;
         gbc.gridy = 4;
         gbc.gridwidth = 1;
         JButton dot = makeButton(".", buttonFont);
         buttons.add(dot, gbc);
-
 
         // Botón '='
         gbc.gridx = 3;
@@ -104,6 +104,7 @@ public class CalculadoraUI extends JFrame {
                 currentText = "0";
                 operator = null;
                 operand1 = 0;
+
                 break;
             case "±":
                 if (!currentText.equals("0")) {
@@ -113,6 +114,7 @@ public class CalculadoraUI extends JFrame {
                         currentText = "-" + currentText;
                     }
                 }
+
                 break;
             case ".":
                 if (resetOnNextDigit) {
@@ -122,11 +124,12 @@ public class CalculadoraUI extends JFrame {
                 if (!currentText.contains(".")) {
                     currentText += ".";
                 }
+
                 break;
             case "=":
                  if (operator != null) {
                     double operand2 = Double.parseDouble(currentText);
-                    double result = calculate(operand1, operand2, operator);
+                    double result = calculator.calculate(operand1, operand2, operator);
                     currentText = formatResult(result);
                     operator = null;
                 }
@@ -149,17 +152,6 @@ public class CalculadoraUI extends JFrame {
                 break;
         }
         displayTextField.setText(currentText);
-    }
-
-     private double calculate(double a, double b, String op) {
-        switch (op) {
-            case "+": return a + b;
-            case "-": return a - b;
-            case "*": return a * b;
-            case "/": return b != 0 ? a / b : Double.NaN;
-            case "%": return a % b;
-            default: return b;
-        }
     }
 
     private String formatResult(double value) {
