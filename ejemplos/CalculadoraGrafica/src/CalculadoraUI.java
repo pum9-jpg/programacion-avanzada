@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class CalculadoraUI extends JFrame {
 
@@ -8,9 +11,12 @@ public class CalculadoraUI extends JFrame {
     private double operand1 = 0;
     private String operator = null;
     private boolean resetOnNextDigit = false;
+
+     // lista para almacenar el historial de operaciones
+     private final List<String> history = new ArrayList<>();
     
     public CalculadoraUI() {
-        super("Calculadora");
+        super("Calculadora");// cambio de título
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setSize(800, 800);
@@ -83,10 +89,22 @@ public class CalculadoraUI extends JFrame {
 
         mainPanel.add(buttons, BorderLayout.CENTER);
 
+        // Panel de funciones científicas + historial
+        JPanel scientificPanel = new JPanel(new GridLayout(1, 6, 5, 5));
+        String[] scientificFunctions = {"√", "x²", "sin", "cos", "tan", "Hist"};
+
+        for (String func : scientificFunctions) {
+            JButton sciBtn = makeButton(func, buttonFont);
+            scientificPanel.add(sciBtn);
+        }
+
+        mainPanel.add(scientificPanel, BorderLayout.SOUTH); // centrar pantalla
+
         setContentPane(mainPanel);
         pack();
-        setLocationRelativeTo(null); // centrar en pantalla
-    }
+        setLocationRelativeTo(null);
+    } // centrar en pantalla
+    
 
     private JButton makeButton(String text, Font font) {
         JButton b = new JButton(text);
@@ -104,6 +122,7 @@ public class CalculadoraUI extends JFrame {
                 currentText = "0";
                 operator = null;
                 operand1 = 0;
+                 history.clear(); // limpiar historial al presionar C
                 break;
             case "±":
                 if (!currentText.equals("0")) {
@@ -128,15 +147,49 @@ public class CalculadoraUI extends JFrame {
                     double operand2 = Double.parseDouble(currentText);
                     double result = calculate(operand1, operand2, operator);
                     currentText = formatResult(result);
+                     String resultText = formatResult(result);
+                    // NUEVO: guardar en historial
+                    history.add(operand1 + " " + operator + " " + operand2 + " = " + resultText);
+                    currentText = resultText;
                     operator = null;
                 }
                 
                 break;
+
             case "+": case "-": case "*": case "/": case "%":
                 operand1 = Double.parseDouble(currentText);
                 operator = text;
                 resetOnNextDigit = true; // la próxima cifra reinicia
                 break;
+
+                // funciones científicas
+            case "√":
+                currentText = formatResult(Math.sqrt(Double.parseDouble(currentText)));
+                break;
+            case "x²":
+                currentText = formatResult(Math.pow(Double.parseDouble(currentText), 2));
+                break;
+            case "sin":
+                currentText = formatResult(Math.sin(Math.toRadians(Double.parseDouble(currentText))));
+                break;
+            case "cos":
+                currentText = formatResult(Math.cos(Math.toRadians(Double.parseDouble(currentText))));
+                break;
+            case "tan":
+                currentText = formatResult(Math.tan(Math.toRadians(Double.parseDouble(currentText))));
+                break;
+
+            //  mostrar historial
+            case "Hist":
+                if (history.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "No hay historial disponible.");
+                } else {
+                    StringBuilder sb = new StringBuilder("Historial de operaciones:\n");
+                    for (String entry : history) sb.append(entry).append("\n");
+                    JOptionPane.showMessageDialog(this, sb.toString());
+                }
+                break;
+
             default: // números
                 if (resetOnNextDigit) {
                     currentText = text;
@@ -163,7 +216,12 @@ public class CalculadoraUI extends JFrame {
     }
 
     private String formatResult(double value) {
-        // Elimina .0 si es entero
+        
+        // control de errores
+
+        if (Double.isNaN(value) || Double.isInfinite(value)) {
+            return "Error";
+        }
         if (value == (long) value) {
             return String.valueOf((long) value);
         } else {
@@ -179,5 +237,9 @@ public class CalculadoraUI extends JFrame {
     public String getDisplayText() {
         return displayTextField.getText();
     }
-
+    //  método main para ejecutar la calculadora directamente
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new CalculadoraUI().setVisible(true));
+    }
 }
+
