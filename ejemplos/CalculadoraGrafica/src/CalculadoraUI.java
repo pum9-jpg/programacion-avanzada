@@ -81,6 +81,12 @@ public class CalculadoraUI extends JFrame {
         JButton eq = makeButton("=", buttonFont);
         buttons.add(eq, gbc);
 
+        gbc.gridy=0;
+        gbc. gridheight=1;
+        gbc.gridx = 0;
+        JButton sin = makeButton("Sin", buttonFont);
+        buttons.add(eq, gbc);
+
         mainPanel.add(buttons, BorderLayout.CENTER);
 
         setContentPane(mainPanel);
@@ -151,16 +157,7 @@ public class CalculadoraUI extends JFrame {
         displayTextField.setText(currentText);
     }
 
-     private double calculate(double a, double b, String op) {
-        switch (op) {
-            case "+": return a + b;
-            case "-": return a - b;
-            case "*": return a * b;
-            case "/": return b != 0 ? a / b : Double.NaN;
-            case "%": return a % b;
-            default: return b;
-        }
-    }
+     
 
     private String formatResult(double value) {
         // Elimina .0 si es entero
