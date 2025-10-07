@@ -9,6 +9,13 @@ public class CalculadoraUI extends JFrame {
     private String operator = null;
     private boolean resetOnNextDigit = false;
     private Calculadora calculator;
+    private String[][] labelsString = {
+            //{"sin", "cos", "tan", "x^y"},
+            {"C", "±", "%", "/"},
+            {"7", "8", "9", "*"},
+            {"4", "5", "6", "-"},
+            {"1", "2", "3", "+"}
+        };
     
     public CalculadoraUI() {
         super("Calculadora");
@@ -42,18 +49,39 @@ public class CalculadoraUI extends JFrame {
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
 
-        String[][] labelsString = {
-            {"C", "±", "%", "/"},
-            {"7", "8", "9", "*"},
-            {"4", "5", "6", "-"},
-            {"1", "2", "3", "+"}
-        };
+        // Botón 'sin0'
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 1;
+        JButton sin = makeButton("sin", buttonFont);
+        buttons.add(sin, gbc);
+        
+        // Botón 'cos0'
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.gridwidth = 1;
+        JButton cos = makeButton("cos", buttonFont);
+        buttons.add(cos, gbc);
+
+        // Botón 'tan0'
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        gbc.gridwidth = 1;
+        JButton tan = makeButton("tan", buttonFont);
+        buttons.add(tan, gbc);
+        
+        // Botón 'x^y0'
+        gbc.gridx = 3;
+        gbc.gridy = 0;
+        gbc.gridwidth = 1;
+        JButton xy = makeButton("x^y", buttonFont);
+        buttons.add(xy, gbc);
 
         // Filas 0..3 (4 columnas)
         for (int row = 0; row < labelsString.length; row++) {
             for (int col = 0; col < labelsString[row].length; col++) {
                 gbc.gridx = col;
-                gbc.gridy = row;
+                gbc.gridy = row + 1;
                 JButton b = makeButton(labelsString[row][col], buttonFont);
                 // Placeholder: aquí podrías añadir ActionListeners para cada botón
                 buttons.add(b, gbc);
@@ -63,21 +91,21 @@ public class CalculadoraUI extends JFrame {
         // Última fila: 0 (dos columnas), ., =
         // Botón 0 que ocupa dos columnas
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 6;
         gbc.gridwidth = 2;
         JButton zero = makeButton("0", buttonFont);
         buttons.add(zero, gbc);
 
         // Botón '.'
         gbc.gridx = 2;
-        gbc.gridy = 4;
+        gbc.gridy = 6;
         gbc.gridwidth = 1;
         JButton dot = makeButton(".", buttonFont);
         buttons.add(dot, gbc);
 
         // Botón '='
         gbc.gridx = 3;
-        gbc.gridy = 4;
+        gbc.gridy = 6;
         JButton eq = makeButton("=", buttonFont);
         buttons.add(eq, gbc);
 
@@ -135,7 +163,7 @@ public class CalculadoraUI extends JFrame {
                 }
                 
                 break;
-            case "+": case "-": case "*": case "/": case "%":
+            case "+": case "-": case "*": case "/": case "%": case "x^y":
                 operand1 = Double.parseDouble(currentText);
                 operator = text;
                 resetOnNextDigit = true; // la próxima cifra reinicia

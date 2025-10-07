@@ -12,6 +12,7 @@ public class Calculadora {
             case "*": return multi(a, b);
             case "/": return divi(a, b);
             case "%": return porcentage(a, b);
+            case "x^y": return exp(a, b);
             default: return b;
         }
     }
@@ -34,5 +35,9 @@ public class Calculadora {
 
     public double porcentage(double a, double b) {
         return a % b;
+    }
+
+    public double exp(double a, double b) {
+        return Math.pow(a, b);
     }
 }
