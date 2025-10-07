@@ -8,9 +8,11 @@ public class CalculadoraUI extends JFrame {
     private double operand1 = 0;
     private String operator = null;
     private boolean resetOnNextDigit = false;
+    private Calculadora calculator;
     
     public CalculadoraUI() {
         super("Calculadora");
+        calculator = new Calculadora();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setSize(800, 800);
@@ -40,6 +42,26 @@ public class CalculadoraUI extends JFrame {
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
 
+        gbc.gridy = 0;
+        gbc.gridy = 0;
+        gbc.gridx = 0;
+        JButton sin = makeButton("sin", buttonFont);
+        buttons.add(sin, gbc);
+
+        gbc.gridx = 1;
+        JButton cos = makeButton("cos", buttonFont);
+        buttons.add(cos, gbc);
+
+        gbc.gridx = 2;
+        JButton tan = makeButton("tan", buttonFont);
+        buttons.add(tan, gbc);
+
+        gbc.gridx = 3;
+        JButton exp = makeButton("exp", buttonFont);
+        buttons.add(exp, gbc);
+
+
+        //gbc.gridy = 1;
         String[][] labelsString = {
             {"C", "±", "%", "/"},
             {"7", "8", "9", "*"},
@@ -60,32 +82,28 @@ public class CalculadoraUI extends JFrame {
 
         // Última fila: 0 (dos columnas), ., =
         // Botón 0 que ocupa dos columnas
+        
+
+
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         gbc.gridwidth = 2;
         JButton zero = makeButton("0", buttonFont);
         buttons.add(zero, gbc);
 
-
         // Botón '.'
         gbc.gridx = 2;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         gbc.gridwidth = 1;
         JButton dot = makeButton(".", buttonFont);
         buttons.add(dot, gbc);
 
-
         // Botón '='
         gbc.gridx = 3;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         JButton eq = makeButton("=", buttonFont);
         buttons.add(eq, gbc);
 
-        gbc.gridy=0;
-        gbc. gridheight=1;
-        gbc.gridx = 0;
-        JButton sin = makeButton("Sin", buttonFont);
-        buttons.add(eq, gbc);
 
         mainPanel.add(buttons, BorderLayout.CENTER);
 
@@ -110,6 +128,7 @@ public class CalculadoraUI extends JFrame {
                 currentText = "0";
                 operator = null;
                 operand1 = 0;
+
                 break;
             case "±":
                 if (!currentText.equals("0")) {
@@ -119,6 +138,7 @@ public class CalculadoraUI extends JFrame {
                         currentText = "-" + currentText;
                     }
                 }
+
                 break;
             case ".":
                 if (resetOnNextDigit) {
@@ -128,11 +148,12 @@ public class CalculadoraUI extends JFrame {
                 if (!currentText.contains(".")) {
                     currentText += ".";
                 }
+
                 break;
             case "=":
                  if (operator != null) {
                     double operand2 = Double.parseDouble(currentText);
-                    double result = calculate(operand1, operand2, operator);
+                    double result = calculator.calculate(operand1, operand2, operator);
                     currentText = formatResult(result);
                     operator = null;
                 }
@@ -156,8 +177,6 @@ public class CalculadoraUI extends JFrame {
         }
         displayTextField.setText(currentText);
     }
-
-     
 
     private String formatResult(double value) {
         // Elimina .0 si es entero
