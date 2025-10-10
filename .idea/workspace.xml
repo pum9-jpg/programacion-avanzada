@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9309670e-64c0-4281-94ea-00231404539e" name="Changes" comment="Agregando botones" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="ArgolloLucio/Practica1" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Lucio654&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/pum9-jpg/programacion-avanzada.git&quot;,
+    &quot;accountId&quot;: &quot;0f162d4a-55d4-4278-ab6f-8cec6fc7fbac&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="33Ieb1SmEAiLUo0pqvPenLNmb97" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Calculadora.executor": "Run",
+    "Application.HolaMundo.executor": "Run",
+    "Application.Principal.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "settings.editor.selected.configurable": "org.intellij.featuresSuggester.FeatureSuggesterConfigurable"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9309670e-64c0-4281-94ea-00231404539e" name="Changes" comment="" />
+      <created>1759009081540</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1759009081540</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Agregando Resta, multiplicacion y division">
+      <option name="closed" value="true" />
+      <created>1759277014037</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1759277014037</updated>
+    </task>
+    <task id="LOCAL-00002" summary="aplicando menu-no funciono">
+      <option name="closed" value="true" />
+      <created>1759363093890</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1759363093890</updated>
+    </task>
+    <task id="LOCAL-00003" summary="funciono con ayuda de la IA">
+      <option name="closed" value="true" />
+      <created>1759446799102</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1759446799102</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Agregando botones">
+      <option name="closed" value="true" />
+      <created>1759450807798</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1759450807798</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Agregando Resta, multiplicacion y division" />
+    <MESSAGE value="aplicando menu-no funciono" />
+    <MESSAGE value="funciono con ayuda de la IA" />
+    <MESSAGE value="Agregando botones" />
+    <option name="LAST_COMMIT_MESSAGE" value="Agregando botones" />
+  </component>
+</project>
