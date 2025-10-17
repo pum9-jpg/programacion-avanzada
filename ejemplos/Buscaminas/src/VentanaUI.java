@@ -20,6 +20,37 @@ public class VentanaUI extends JFrame {
             terreno[random.nextInt(DIMENSION)][random.nextInt(DIMENSION)]= -1;
         }
 
+        //Crear los contadores
+        for (int row = 0; row < terreno.length; row++) {
+            for (int col = 0; col < terreno[row].length; col++) {
+                int aux = terreno[row][col];
+                if (aux != -1) {
+                    int contador = 0;
+
+                    // Verificar los 8 vecinos con IFs
+                    if (row - 1 >= 0 && terreno[row - 1][col] == -1)
+                        contador++;
+                    if (row + 1 < terreno.length && terreno[row + 1][col] == -1)
+                        contador++;
+                    if (col - 1 >= 0 && terreno[row][col - 1] == -1)
+                        contador++;
+                    if (col + 1 < terreno[row].length && terreno[row][col + 1] == -1)
+                        contador++;
+                    if (row - 1 >= 0 && col - 1 >= 0 && terreno[row - 1][col - 1] == -1)
+                        contador++;
+                    if (row - 1 >= 0 && col + 1 < terreno[row].length && terreno[row - 1][col + 1] == -1)
+                        contador++;
+                    if (row + 1 < terreno.length && col - 1 >= 0 && terreno[row + 1][col - 1] == -1)
+                        contador++;
+                    if (row + 1 < terreno.length && col + 1 < terreno[row].length && terreno[row + 1][col + 1] == -1)
+                        contador++;
+
+                    // Guardar el número de minas vecinas
+                    terreno[row][col] = contador;
+                } 
+            }
+        }
+
         // Fuente y dimensiones recomendadas
         Font buttonFont = new Font(Font.SANS_SERIF, Font.PLAIN, 20);
 
@@ -67,11 +98,34 @@ public class VentanaUI extends JFrame {
     }
 
     private void handleButtonClick(Celda boton) {
-        int aux = boton.getValor();
-        if (aux == -1)
+        int valor = boton.getValor();
+
+        if (valor == -1) {
             boton.setText("💥");
-        else
-            boton.setText(Integer.toString(aux));
+            boton.setBackground(Color.RED);
+        } else {
+            if (valor == 0) {
+                boton.setText(""); // sin texto
+                boton.setEnabled(false); // opcional, desactivar celda vacía
+            } else {
+                boton.setText(Integer.toString(valor));
+                boton.setForeground(getColorPorNumero(valor));
+                boton.setFont(new Font("Arial", Font.BOLD, 18));
+            }
+        }
     }
 
+    private Color getColorPorNumero(int n) {
+        switch (n) {
+            case 1: return Color.BLUE;
+            case 2: return new Color(0, 128, 0);     // Verde
+            case 3: return Color.RED;
+            case 4: return new Color(0, 0, 128);     // Azul oscuro
+            case 5: return new Color(128, 0, 0);     // Marrón oscuro
+            case 6: return new Color(64, 224, 208);  // Turquesa
+            case 7: return Color.BLACK;
+            case 8: return Color.GRAY;
+            default: return Color.BLACK;
+        }
+    }
 }
