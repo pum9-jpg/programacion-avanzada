@@ -27,6 +27,7 @@ public class Calculadora {
     public double division() {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         if (this.operando2 == 0) {
          return 0;
         }
@@ -35,15 +36,20 @@ public class Calculadora {
 =======
 =======
 >>>>>>> ff775f0af8734aa629f9eb7f0bd4ba2227241a7e
+=======
+>>>>>>> 23fe419ac19070a5f56051f018313e23c3137391
         if (operando2 ==0){
             System.out.println("Division por cero no permitida ");
         }
         return this.operando1 / this.operando2;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> ff775f0af8734aa629f9eb7f0bd4ba2227241a7e
 =======
 >>>>>>> ff775f0af8734aa629f9eb7f0bd4ba2227241a7e
+=======
+>>>>>>> 23fe419ac19070a5f56051f018313e23c3137391
     }
 
 }
