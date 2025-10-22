@@ -4,79 +4,25 @@ import java.util.*;
 
 public class VentanaUI extends JFrame {
     
+    private Celda[][] botones; // Matriz para guardar referencias a todos los botones
+    private int DIMENSION = 10;
+    private Terreno terreno;
+
     public VentanaUI() {
         super("Buscaminas");
       
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(true);
 
-        int DIMENSION = 10;
-        int[][] terreno = new int[DIMENSION][DIMENSION];
-
-        //Crear minas
-        Random random = new Random();
-        int CANTIDAD_MINAS = (int)Math.floor(DIMENSION*DIMENSION*0.3) ;
-        for (int i = 0; i < CANTIDAD_MINAS; i++) {
-            terreno[random.nextInt(DIMENSION)][random.nextInt(DIMENSION)]= -1;
-        }
-
-        //Crear los contadores
-        for (int row = 0; row < terreno.length; row++) {
-            for (int col = 0; col < terreno[row].length; col++) {
-                int aux = terreno[row][col];
-                if (aux != -1) {
-                    int contador = 0;
-
-                    // Verificar los 8 vecinos con IFs
-                    if (row - 1 >= 0 && terreno[row - 1][col] == -1)
-                        contador++;
-                    if (row + 1 < terreno.length && terreno[row + 1][col] == -1)
-                        contador++;
-                    if (col - 1 >= 0 && terreno[row][col - 1] == -1)
-                        contador++;
-                    if (col + 1 < terreno[row].length && terreno[row][col + 1] == -1)
-                        contador++;
-                    if (row - 1 >= 0 && col - 1 >= 0 && terreno[row - 1][col - 1] == -1)
-                        contador++;
-                    if (row - 1 >= 0 && col + 1 < terreno[row].length && terreno[row - 1][col + 1] == -1)
-                        contador++;
-                    if (row + 1 < terreno.length && col - 1 >= 0 && terreno[row + 1][col - 1] == -1)
-                        contador++;
-                    if (row + 1 < terreno.length && col + 1 < terreno[row].length && terreno[row + 1][col + 1] == -1)
-                        contador++;
-
-                    // Guardar el número de minas vecinas
-                    terreno[row][col] = contador;
-                } 
-            }
-        }
-
-        // Fuente y dimensiones recomendadas
-        Font buttonFont = new Font(Font.SANS_SERIF, Font.PLAIN, 20);
+        //int DIMENSION = 10;
+        terreno = new Terreno(DIMENSION);
+        botones = new Celda[DIMENSION][DIMENSION]; // Inicializar la matriz de botones
 
         // Panel principal
         JPanel mainPanel = new JPanel(new BorderLayout(8, 8));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Panel de botones con GridBag para permitir que el botón 0 ocupe más espacio
-        JPanel buttonsPanel = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.insets = new Insets(2, 2, 2, 2);
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
-
-        // Filas 0..n-1 (n columnas)
-        for (int row = 0; row < terreno.length; row++) {
-            for (int col = 0; col < terreno[row].length; col++) {
-                gbc.gridx = col;
-                gbc.gridy = row + 1;
-                int aux = terreno[row][col];
-                JButton b = makeButton(aux, buttonFont);
-                // Placeholder: aquí podrías añadir ActionListeners para cada botón
-                buttonsPanel.add(b, gbc);
-            }
-        }
+        JPanel buttonsPanel = crearPanelBotones();
 
         mainPanel.add(buttonsPanel, BorderLayout.CENTER);
 
@@ -86,7 +32,7 @@ public class VentanaUI extends JFrame {
         setLocationRelativeTo(null); // centrar en pantalla
     }
 
-    private JButton makeButton(int valor, Font font) {
+    private Celda makeButton(int valor, Font font) {
         Celda b = new Celda(valor);
         b.setFont(font);
         b.setPreferredSize(new Dimension(25, 25));
@@ -103,6 +49,15 @@ public class VentanaUI extends JFrame {
         if (valor == -1) {
             boton.setText("💥");
             boton.setBackground(Color.RED);
+
+            // MOSTRAR TODOS LOS BOTONES
+            mostrarTodosLosBotones();
+            
+            //Arroja una alerta que perdiste por pisar una mina
+            JOptionPane.showMessageDialog(this, 
+                "¡Perdiste! Has pisado una mina.", 
+                "Fin del juego", 
+                JOptionPane.ERROR_MESSAGE);
         } else {
             if (valor == 0) {
                 boton.setText(""); // sin texto
@@ -127,5 +82,60 @@ public class VentanaUI extends JFrame {
             case 8: return Color.GRAY;
             default: return Color.BLACK;
         }
+    }
+
+    private void mostrarTodosLosBotones() {
+        for (int row = 0; row < DIMENSION; row++) {
+            for (int col = 0; col < DIMENSION; col++) {
+                Celda boton = botones[row][col];
+                int valor = boton.getValor();
+                
+                // Si ya estaba revelado, saltar
+                if (!boton.isEnabled()) continue;
+                
+                if (valor == -1) {
+                    // Es una mina
+                    boton.setText("💣");
+                    boton.setBackground(Color.ORANGE);
+                } else if (valor == 0) {
+                    // Celda vacía
+                    boton.setText("");
+                    boton.setBackground(Color.LIGHT_GRAY);
+                } else {
+                    // Número
+                    boton.setText(Integer.toString(valor));
+                    boton.setForeground(getColorPorNumero(valor));
+                    boton.setBackground(Color.LIGHT_GRAY);
+                }
+                boton.setEnabled(false); // Deshabilitar el botón
+            }
+        }
+    }
+
+    private JPanel crearPanelBotones() {
+        // Fuente y dimensiones recomendadas
+        Font buttonFont = new Font(Font.SANS_SERIF, Font.PLAIN, 20);
+
+        // Panel de botones con GridBag para permitir que el botón 0 ocupe más espacio
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.insets = new Insets(2, 2, 2, 2);
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+
+        // Filas 0..n-1 (n columnas)
+        for (int row = 0; row < DIMENSION; row++) {
+            for (int col = 0; col < DIMENSION; col++) {
+                gbc.gridx = col;
+                gbc.gridy = row + 1;
+                int aux = terreno.getValor(row, col);
+                Celda b = makeButton(aux, buttonFont);
+                botones[row][col]=b;                // Placeholder: aquí podrías añadir ActionListeners para cada botón
+                panel.add(b, gbc);
+            }
+        }
+
+        return panel;
     }
 }
