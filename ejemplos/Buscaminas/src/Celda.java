@@ -31,4 +31,8 @@ public class Celda extends JButton {
         this.esVisible = ev;
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 97e41d8b5dbe4dd5c94d7a3c94e665ce361cad5f

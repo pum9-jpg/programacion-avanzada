@@ -3,7 +3,10 @@ import java.util.Random;
 public class Terreno {
     private int dimension;
     private int[][] celdas;
+<<<<<<< HEAD
     private int celdasSeguras;
+=======
+>>>>>>> 97e41d8b5dbe4dd5c94d7a3c94e665ce361cad5f
 
     public Terreno(int dimension) {
         this.dimension = dimension;
@@ -16,6 +19,7 @@ public class Terreno {
         return dimension;
     }
 
+<<<<<<< HEAD
     public int getCeldasSeguras() {
         return celdasSeguras;
     }
@@ -35,10 +39,19 @@ public class Terreno {
                 celdas[r][c] = -1; // -1 = Mina
                 minasColocadas++;
             }
+=======
+    private void generarMinas() {
+        //Crear minas
+        Random random = new Random();
+        int CANTIDAD_MINAS = (int)Math.floor(dimension*dimension*0.3) ;
+        for (int i = 0; i < CANTIDAD_MINAS; i++) {
+            celdas[random.nextInt(dimension)][random.nextInt(dimension)]= -1;
+>>>>>>> 97e41d8b5dbe4dd5c94d7a3c94e665ce361cad5f
         }
     }
 
     private void generarContadores(){
+<<<<<<< HEAD
         for (int row = 0; row < dimension; row++) {
             for (int col = 0; col < dimension; col++) {
                 if (celdas[row][col] != -1) {
@@ -70,6 +83,38 @@ public class Terreno {
             }
         }
         return contador;
+=======
+        //Crear los contadores
+        for (int row = 0; row < celdas.length; row++) {
+            for (int col = 0; col < celdas[row].length; col++) {
+                int aux = celdas[row][col];
+                if (aux != -1) {
+                    int contador = 0;
+
+                    // Verificar los 8 vecinos con IFs
+                    if (row - 1 >= 0 && celdas[row - 1][col] == -1)
+                        contador++;
+                    if (row + 1 < celdas.length && celdas[row + 1][col] == -1)
+                        contador++;
+                    if (col - 1 >= 0 && celdas[row][col - 1] == -1)
+                        contador++;
+                    if (col + 1 < celdas[row].length && celdas[row][col + 1] == -1)
+                        contador++;
+                    if (row - 1 >= 0 && col - 1 >= 0 && celdas[row - 1][col - 1] == -1)
+                        contador++;
+                    if (row - 1 >= 0 && col + 1 < celdas[row].length && celdas[row - 1][col + 1] == -1)
+                        contador++;
+                    if (row + 1 < celdas.length && col - 1 >= 0 && celdas[row + 1][col - 1] == -1)
+                        contador++;
+                    if (row + 1 < celdas.length && col + 1 < celdas[row].length && celdas[row + 1][col + 1] == -1)
+                        contador++;
+
+                    // Guardar el número de minas vecinas
+                    celdas[row][col] = contador;
+                } 
+            }
+        }
+>>>>>>> 97e41d8b5dbe4dd5c94d7a3c94e665ce361cad5f
     }
 
     public int getValor(int fila, int columna) {
