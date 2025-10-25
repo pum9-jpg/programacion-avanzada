@@ -114,11 +114,12 @@ Extensión: Descubrir Celda puede extenderse a Expandir Área
 Generalización: Dificultad fija en 10x10
 
 CARACTERÍSTICAS CLAVE:
-Primer movimiento seguro: Nunca se pierde en el primer click
 
-Expansión automática: Áreas vacías se descubren automáticamente
+1.-Primer movimiento seguro: Nunca se pierde en el primer click
 
-Feedback inmediato: Colores diferentes para cada número
+2.-Expansión automática: Áreas vacías se descubren automáticamente
+
+3.-Feedback inmediato: Colores diferentes para cada número
 
 Control completo: Reinicio en cualquier momento
 
