@@ -40,9 +40,7 @@ java Principal
 graph TD
     A[Jugador] --> B[Iniciar Juego]
     A --> C[Descubrir Celda]
-    A --> E[Reiniciar Juego]
-    A --> F[Consultar Tiempo]
-    
+      
     C --> J[Validar Movimiento]
     J --> K{Es Mina?}
     K -->|Sí| L[Fin del Juego - Derrota]
@@ -119,16 +117,12 @@ classDiagram
         -Celda[][] botones
         -Terreno terreno
         -int DIMENSION = 10
-        -JLabel estadoLabel
-        -JLabel minasLabel
         -Timer timer
-        -int tiempoTranscurrido
         -boolean juegoActivo
         +VentanaUI()
         -crearPanelBotones() JPanel
         -manejarClickIzquierdo(Celda)
         -manejarClickDerecho(Celda)
-        -reiniciarJuego()
         -actualizarVistaCompleta()
     }
 
@@ -211,20 +205,17 @@ Hereda de JButton para integración Swing
 Auto-gestiona su apariencia visual
 
 RELACIONES PRINCIPALES:
-Composición Fuerte: VentanaUI contiene Terreno y Celdas (si se destruye la ventana, se destruye todo)
 
-Agregación: Terreno contiene Celdas pero pueden existir independientemente
-
-Herencia: Celda extiende JButton para funcionalidad de botón
+1.-Composición Fuerte: VentanaUI contiene Terreno y Celdas (si se destruye la ventana, se destruye todo)
+2.-Agregación: Terreno contiene Celdas pero pueden existir independientemente
+3.-Herencia: Celda extiende JButton para funcionalidad de botón
 
 CARACTERÍSTICAS CLAVE:
-Encapsulamiento: Cada clase tiene responsabilidades bien definidas
 
-Acoplamiento bajo: Las clases se comunican through interfaces claras
-
-Cohesión alta: Cada clase tiene un propósito específico
-
-Extensibilidad: Fácil agregar nuevas características
+1.-Encapsulamiento: Cada clase tiene responsabilidades bien definidas
+2.-Acoplamiento bajo: Las clases se comunican through interfaces claras
+3.-Cohesión alta: Cada clase tiene un propósito específico
+4.-Extensibilidad: Fácil agregar nuevas características
 
 
 
@@ -239,9 +230,9 @@ graph TD
     E --> F[Mostrar Interfaz Gráfica]
     F --> G{Esperar Acción Usuario}
     
-    G --> H[Click Izquierdo Celda]
+
     G --> I[Click Derecho Celda]
-    G --> J[Botón Reiniciar]
+ 
     
     H --> K{Primer Movimiento?}
     K -->|Sí| L[Generar Minas<br>excluyendo área segura]
@@ -265,15 +256,6 @@ graph TD
     W --> P
     V -->|No| G
     
-    I --> X{Celda Marcable?}
-    X -->|Sí| Y[Alternar Bandera]
-    Y --> Z[Actualizar Contador Minas]
-    Z --> G
-    
-    J --> AA[Reinicializar Terreno]
-    AA --> BB[Recrear Interfaz]
-    BB --> G
-    
     style A fill:#e3f2fd
     style P fill:#f5f5f5
     style O fill:#ffebee
@@ -283,56 +265,45 @@ graph TD
 EXPLICACIÓN DEL DIAGRAMA:
 Flujo Principal del Juego:
 
-INICIALIZACIÓN (Actividades A-E)
+INICIALIZACIÓN 
 
 Configuración del entorno gráfico
-
 Creación del modelo de datos (Terreno)
-
 Construcción de la interfaz
 
-BUCLE PRINCIPAL (Actividad G)
+BUCLE PRINCIPAL
 
 Estado de espera constante por input del usuario
-
 Tres tipos de acciones posibles
 
-GESTIÓN DE EVENTOS (Ramificaciones H, I, J)
+GESTIÓN DE EVENTOS 
 
 Procesos Clave:
 
-Generación Inteligente de Minas (L):
+Generación Inteligente de Minas :
 
 Excluye celda del primer click y sus 8 vecinos
-
 Garantiza juego justo desde el inicio
 
-Expansión Recursiva (S):
+Expansión Recursiva:
 
 Algoritmo que descubre automáticamente áreas contiguas vacías
-
 Mejora experiencia de usuario
 
-Verificación de Victoria (V):
+Verificación de Victoria:
 
 Fórmula: celdasDescubiertas == (totalCeldas - totalMinas)
-
 Detección automática sin intervención del usuario
 
 TRANSICIONES CRÍTICAS:
+
 Primer Movimiento: Activa generación segura de minas
-
 Descubrimiento de Mina: Transición a estado de derrota
-
 Expansión Completa: Posible transición a victoria
-
 Reinicio: Ciclo completo de reinicialización
 
 CARACTERÍSTICAS CLAVE:
+
 Flujo Continuo: Bucle infinito hasta victoria/derrota
-
 Manejo de Estados: Transiciones claras entre estados del juego
-
-Procesos en Paralelo: Temporizador corre independientemente
-
 Recursividad: Expansión de áreas usa llamadas recursivas
