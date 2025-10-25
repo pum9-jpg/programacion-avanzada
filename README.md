@@ -1,21 +1,16 @@
 # Buscaminas en Java
 
-```mermaid
-config:
-  theme: default
-```
-
 Un juego clásico de Buscaminas implementado en Java con interfaz gráfica Swing.
 
 ## Características
 
-- ✅ Tablero 10x10 con 15 minas
-- ✅ Primer movimiento seguro
-- ✅ Expansión automática de áreas vacías
-- ✅ Sistema de banderas con click derecho
-- ✅ Temporizador integrado
-- ✅ Detección automática de victoria/derrota
-- ✅ Reinicio completo del juego
+- Tablero 10x10 con 15 minas
+- Primer movimiento seguro
+- Expansión automática de áreas vacías
+- Sistema de banderas con click derecho
+- Temporizador integrado
+- Detección automática de victoria/derrota
+- Reinicio completo del juego
 
 ## Estructura del Proyecto
 
@@ -37,7 +32,7 @@ javac *.java
 java Principal
 ```
 
-## 📊 Diagramas UML
+## Diagramas UML
 
 ### 1. Diagrama de Casos de Uso
 
@@ -191,4 +186,3 @@ graph TD
     style O fill:#ffebee
     style W fill:#e8f5e8
 ```
-
