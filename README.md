@@ -135,6 +135,8 @@ classDiagram
     Celda --|> JButton
 ```
 
+hola prueba
+
 ### 3. Diagrama de Actividades
 
 ```mermaid
